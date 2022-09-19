@@ -1,50 +1,57 @@
-import './css/App.css';
-import ExpenseItem from './components/ExpenseItems';
+import './style/App.css';
+import Expenses from "./components/Expenses/Expenses"
+import NewExpense from './components/NewExpense/NewExpense';
+import { useEffect, useState } from 'react';
 
-const expensesArray = [
-	{
-		id: 'e1',
-		title: 'Toilet Paper',
-		amount: 94.12,
-		date: new Date(2020, 7, 14),
-	},
-	{ id: 'e2', title: 'New TV', amount: 799.49, date: new Date(2021, 2, 12) },
-	{
-		id: 'e3',
-		title: 'Car Insurance',
-		amount: 294.67,
-		date: new Date(2021, 2, 28),
-	},
-	{
-		id: 'e4',
-		title: 'New Desk (Wooden)',
-		amount: 450,
-		date: new Date(2021, 5, 12),
-	},
-];
-
-function App() {
-
+const App = () => {
+	
+	//States
+	const [expenseArray, setExpenseArray] = useState(
+		[
+			{
+				id: 'e1',
+				title: 'Toilet Paper',
+				amount: 94.12,
+				date: new Date(2020, 7, 14),
+			},
+			{ id: 'e2', title: 'New TV', amount: 799.49, date: new Date(2021, 2, 12) },
+			{
+				id: 'e3',
+				title: 'Car Insurance',
+				amount: 294.67,
+				date: new Date(2021, 2, 28),
+			},
+			{
+				id: 'e4',
+				title: 'New Desk (Wooden)',
+				amount: 450,
+				date: new Date(2021, 5, 12),
+			},
+		]
+	)
+	
+	const [newExpense, setNewExpense] = useState({
+		id: Math.random().toString(),
+		title:"",
+		amount: "",
+		date: ""
+	})
+	
+	//Callbacks
+	const newExpenseHandler = (e) => {
+		e.preventDefault()
+		setExpenseArray([...expenseArray, newExpense])
+	}
+	
+	useEffect(() => {
+		console.log(expenseArray);
+	}, [expenseArray])
+	
 	return (
 		<div>
-			<Expenses />
+			<NewExpense newExpenseHandler={(e) => { newExpenseHandler(e) }} newExpense={newExpense} addExepense={setNewExpense} />
+			<Expenses expensesArray={expenseArray} />
 		</div>
 	);
 }
-
-const Expenses = () => {
-
-	return(
-		<div>
-			{
-				expensesArray.map((item, index) => {
-					return(
-						<ExpenseItem key={index} expense={item} />
-					)
-				})
-			}
-		</div>
-	)
-}
-
-export default App;
+export default App
