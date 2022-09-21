@@ -38,9 +38,17 @@ const App = () => {
 	})
 	
 	//Callbacks
-	const newExpenseHandler = (e) => {
+	
+	// const newExpenseHandler = (e) => {
+	// 	e.preventDefault()
+	// 	setExpenseArray([...expenseArray, newExpense])
+	// }
+
+	const newExpenseHandler = (e) => {
 		e.preventDefault()
-		setExpenseArray([...expenseArray, newExpense])
+		setExpenseArray((prevState) => {
+			return [...prevState, newExpense]
+		})
 	}
 	
 	useEffect(() => {
@@ -49,7 +57,7 @@ const App = () => {
 	
 	return (
 		<div>
-			<NewExpense newExpenseHandler={(e) => { newExpenseHandler(e) }} newExpense={newExpense} addExepense={setNewExpense} />
+			<NewExpense newExpenseHandler={(e) => { newExpenseHandler(e) }} newExpense={newExpense} addExpense={setNewExpense} />
 			<Expenses expensesArray={expenseArray} />
 		</div>
 	);
