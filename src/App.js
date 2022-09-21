@@ -53,6 +53,13 @@ const App = () => {
 	
 	useEffect(() => {
 		console.log(expenseArray);
+		//Fields Reset after submit
+		setNewExpense({
+			id: Math.random().toString(),
+			title:"",
+			amount: "",
+			date: ""
+		})
 	}, [expenseArray])
 	
 	return (

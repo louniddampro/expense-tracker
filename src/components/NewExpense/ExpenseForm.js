@@ -27,18 +27,31 @@ const ExpenseForm = (props) => {
 				<div className='new-expense__control'>
 					<label>Title</label>
 					{/* <input type="text" onChange={(e) => {addExpense({...newExpense, title: e.target.value})}} /> */}
-					<input type="text" onChange={(e) => { addExpense((prevState) => { return {...prevState, title: e.target.value} }) }} />
+					<input
+					type="text"
+					value={newExpense.title}
+					onChange={(e) => { addExpense((prevState) => { return {...prevState, title: e.target.value} }) }} />
 				</div>
 
 				<div className='new-expense__control'>
 					<label>Amount</label>
 					{/* <input type="number" min="0.01" step="0.01" onChange={(e) => {addExpense({...newExpense, amount: e.target.value})}} /> */}
-					<input type="number" min="0.01" step="0.01" onChange={(e) => { addExpense((prevState) => { return {...prevState, amount: e.target.value} }) }} />
+					<input
+					type="number"
+					value={newExpense.amount}
+					min="0.01"
+					step="0.01"
+					onChange={(e) => { addExpense((prevState) => { return {...prevState, amount: e.target.value} }) }} />
 				</div>
 
 				<div className='new-expense__control'>
 					<label>Date</label>
-					<input type="date" min="2021-01-01" max="2023-12-31" onChange={(e) => { formatDateHandler(e.target) }} />
+					<input
+					type="date"
+					value={newExpense.date}
+					min="2021-01-01"
+					max="2023-12-31"
+					onChange={(e) => { formatDateHandler(e.target) }} />
 				</div>
 			</div>
 			<div className='new-expense__actions'>
