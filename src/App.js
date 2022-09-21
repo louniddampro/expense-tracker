@@ -44,9 +44,9 @@ const App = () => {
 	// 	setExpenseArray([...expenseArray, newExpense])
 	// }
 
-	const newExpenseHandler = (e) => {
+	const newExpenseHandler = e => {
 		e.preventDefault()
-		setExpenseArray((prevState) => {
+		setExpenseArray(prevState => {
 			return [...prevState, newExpense]
 		})
 	}

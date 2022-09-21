@@ -30,7 +30,7 @@ const ExpenseForm = (props) => {
 					<input
 					type="text"
 					value={newExpense.title}
-					onChange={(e) => { addExpense((prevState) => { return {...prevState, title: e.target.value} }) }} />
+					onChange={e => { addExpense(prevState => { return {...prevState, title: e.target.value} }) }} />
 				</div>
 
 				<div className='new-expense__control'>
@@ -41,7 +41,7 @@ const ExpenseForm = (props) => {
 					value={newExpense.amount}
 					min="0.01"
 					step="0.01"
-					onChange={(e) => { addExpense((prevState) => { return {...prevState, amount: e.target.value} }) }} />
+					onChange={e => { addExpense(prevState => { return {...prevState, amount: e.target.value} }) }} />
 				</div>
 
 				<div className='new-expense__control'>
@@ -51,11 +51,11 @@ const ExpenseForm = (props) => {
 					value={newExpense.date}
 					min="2021-01-01"
 					max="2023-12-31"
-					onChange={(e) => { formatDateHandler(e.target) }} />
+					onChange={e => { formatDateHandler(e.target) }} />
 				</div>
 			</div>
 			<div className='new-expense__actions'>
-				<button type="submit" onClick={(e) => { newExpenseHandler(e) }}>Add expense</button>
+				<button type="submit" onClick={e => { newExpenseHandler(e) }}>Add expense</button>
 			</div>
 		</form>
 	)
