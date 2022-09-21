@@ -4,22 +4,10 @@ import '../../style/ExpenseForm.css'
 const ExpenseForm = (props) => {
 
 	//Props
-	const {newExpenseHandler, newExpense, addExpense} = props
+	const {newExpenseHandler, newExpense, addExpense, expenseDate, onExpenseDateChange} = props
 
 	//States
-	const [formatDate, setFormatDate] = useState(new Date())
-
-	//Callbacks
-	const formatDateHandler = (e) => {
-		setFormatDate(e)
-		formatDate.toISOString()
-		// addExpense({...newExpense, date: formatDate})
-		addExpense((prevState) => {
-			return {...prevState, date: formatDate}
-		})
-	}
-
-
+	const [formatDate, setFormatDate] = useState("")
 
 	return(
 		<form>
@@ -30,7 +18,7 @@ const ExpenseForm = (props) => {
 					<input
 					type="text"
 					value={newExpense.title}
-					onChange={e => { addExpense(prevState => { return {...prevState, title: e.target.value} }) }} />
+					onChange={e => { addExpense(prevState => ({...prevState, title: e.target.value}) ) }} />
 				</div>
 
 				<div className='new-expense__control'>
@@ -41,21 +29,22 @@ const ExpenseForm = (props) => {
 					value={newExpense.amount}
 					min="0.01"
 					step="0.01"
-					onChange={e => { addExpense(prevState => { return {...prevState, amount: e.target.value} }) }} />
+					onChange={e => { addExpense(prevState => ({...prevState, amount: e.target.value}) ) }} />
 				</div>
 
 				<div className='new-expense__control'>
 					<label>Date</label>
 					<input
 					type="date"
-					value={newExpense.date}
+					value={formatDate}
 					min="2021-01-01"
 					max="2023-12-31"
-					onChange={e => { formatDateHandler(e.target) }} />
+					onChange={e => { {onExpenseDateChange(e.target.value); setFormatDate(e.target.value) }}} 
+					/>
 				</div>
 			</div>
 			<div className='new-expense__actions'>
-				<button type="submit" onClick={e => { newExpenseHandler(e) }}>Add expense</button>
+				<button type="submit" onClick={e => { {newExpenseHandler(e); setFormatDate("")} }}>Add expense</button>
 			</div>
 		</form>
 	)

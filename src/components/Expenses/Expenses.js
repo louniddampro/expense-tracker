@@ -8,27 +8,19 @@ const Expenses = (props) => {
 
 	//Props
 	const {expensesArray} = props
-
+	
 	//States
-	const [filteredYear, setFilteredYear] = useState("2019")
-
-	//Hooks
-
-	// useEffect(() => {
-	// 	console.log(year);
-	// }, [year])
+	const [filteredYear, setFilteredYear] = useState("2022")
 
 	return(
 		<div>
 			<Card className="expenses">
 				<ExpensesFilter filteredYear={filteredYear} onSetFilteredYear={setFilteredYear} />
-				{
-					expensesArray.map((item, index) => {
-						return(
-							<ExpenseItem key={index} expense={item} />
-						)
-					})
-				}
+				 {
+					expensesArray.filter(item =>  (item.date.getFullYear().toString() === filteredYear)).map((item) => (
+						<ExpenseItem key={item.id} expense={item} />
+					))
+				  }
 			</Card>
 		</div>
 	)

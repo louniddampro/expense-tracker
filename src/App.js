@@ -9,8 +9,14 @@ const App = () => {
 	const [expenseArray, setExpenseArray] = useState(
 		[
 			{
-				id: 'e1',
+				id: 'e55',
 				title: 'Toilet Paper',
+				amount: 94.12,
+				date: new Date(2019, 7, 14),
+			},
+			{
+				id: 'e1',
+				title: 'Books',
 				amount: 94.12,
 				date: new Date(2020, 7, 14),
 			},
@@ -25,7 +31,7 @@ const App = () => {
 				id: 'e4',
 				title: 'New Desk (Wooden)',
 				amount: 450,
-				date: new Date(2021, 5, 12),
+				date: new Date(2022, 5, 12),
 			},
 		]
 	)
@@ -34,37 +40,33 @@ const App = () => {
 		id: Math.random().toString(),
 		title:"",
 		amount: "",
-		date: ""
+		date: new Date()
 	})
+
+	const [expenseDate, setExpenseDate] = useState(new Date()) 
 	
 	//Callbacks
-	
-	// const newExpenseHandler = (e) => {
-	// 	e.preventDefault()
-	// 	setExpenseArray([...expenseArray, newExpense])
-	// }
-
 	const newExpenseHandler = e => {
 		e.preventDefault()
-		setExpenseArray(prevState => {
-			return [...prevState, newExpense]
-		})
-	}
-	
-	useEffect(() => {
-		console.log(expenseArray);
-		//Fields Reset after submit
+
+		const test = new Date(expenseDate)
+		
+		setNewExpense(prevState => ({...prevState, date: test.toISOString()}))
+		setExpenseArray(prevState => ([...prevState, newExpense]))
+		
 		setNewExpense({
-			id: Math.random().toString(),
-			title:"",
-			amount: "",
-			date: ""
-		})
-	}, [expenseArray])
-	
+				id: "",
+				title:"",
+				amount: "",
+				date: ""
+			})
+		
+		setExpenseDate("")
+	}
+
 	return (
 		<div>
-			<NewExpense newExpenseHandler={(e) => { newExpenseHandler(e) }} newExpense={newExpense} addExpense={setNewExpense} />
+			<NewExpense newExpenseHandler={e => { newExpenseHandler(e) }} newExpense={newExpense} addExpense={setNewExpense} expenseDate={expenseDate} onExpenseDateChange={setExpenseDate} />
 			<Expenses expensesArray={expenseArray} />
 		</div>
 	);
