@@ -3,6 +3,8 @@ import "../../style/Expenses.css"
 import Card from "../UI/Card"
 import ExpenseItem from "./ExpenseItems"
 import ExpensesFilter from "./ExpensesFilter";
+import ExpensesList from "./ExpensesList";
+import ExpensesChart from "./ExpensesChart";
 
 const Expenses = (props) => {
 
@@ -11,18 +13,16 @@ const Expenses = (props) => {
 	
 	//States
 	const [filteredYear, setFilteredYear] = useState("2022")
+	let filteredArray = expensesArray.filter(item =>  (item.date.getFullYear().toString() === filteredYear))
 
 	return(
-		<div>
+		<li>
 			<Card className="expenses">
 				<ExpensesFilter filteredYear={filteredYear} onSetFilteredYear={setFilteredYear} />
-				 {
-					expensesArray.filter(item =>  (item.date.getFullYear().toString() === filteredYear)).map((item) => (
-						<ExpenseItem key={item.id} expense={item} />
-					))
-				  }
+				<ExpensesChart expenses={filteredArray} />
+				<ExpensesList filteredYear={filteredYear} expensesArray={expensesArray} />
 			</Card>
-		</div>
+		</li>
 	)
 }
 

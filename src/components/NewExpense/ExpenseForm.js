@@ -4,7 +4,14 @@ import '../../style/ExpenseForm.css'
 const ExpenseForm = (props) => {
 
 	//Props
-	const {newExpenseHandler, newExpense, addExpense, expenseDate, onExpenseDateChange} = props
+	const {
+		newExpenseHandler,
+		newExpense,
+		addExpense,
+		// expenseDate,
+		onExpenseDateChange,
+		onShowForm
+		} = props
 
 	//States
 	const [formatDate, setFormatDate] = useState("")
@@ -44,7 +51,8 @@ const ExpenseForm = (props) => {
 				</div>
 			</div>
 			<div className='new-expense__actions'>
-				<button type="submit" onClick={e => { {newExpenseHandler(e); setFormatDate("")} }}>Add expense</button>
+				<button onClick={() => {onShowForm(false)}}>Cancel</button>
+				<button type="submit" onClick={e => { {newExpenseHandler(e); setFormatDate("")}; onShowForm(false) }}>Add expense</button>
 			</div>
 		</form>
 	)
